@@ -5,7 +5,11 @@ import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 import org.junit.jupiter.api.extension.*;
+import pages.GithubPage;
 import pages.GooglePage;
+import pages.PreplyPage;
+import pages.UdemyPage;
+import pages.base.BasePage;
 
 public class PlaywrightPageExtension
         implements
@@ -61,30 +65,53 @@ public class PlaywrightPageExtension
     }
 
     @Override
-    public boolean supportsParameter(ParameterContext parameterContext,
-                                     ExtensionContext extensionContext) {
+    public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext) {
         Class<?> type = parameterContext.getParameter().getType();
+
+        // Поддерживаем все классы, расширяющие BasePage
+        if (BasePage.class.isAssignableFrom(type)) {
+            return true;
+        }
+
+        // Поддерживаем основные объекты Playwright
         return type == Page.class ||
                 type == Browser.class ||
-                type == Playwright.class ||
-                type == GooglePage.class;  // Добавляем поддержку GooglePage
+                type == Playwright.class;
     }
 
     @Override
-    public Object resolveParameter(ParameterContext parameterContext,
-                                   ExtensionContext extensionContext) {
+    public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) {
         Class<?> type = parameterContext.getParameter().getType();
+        Page page = extensionContext.getStore(NAMESPACE).get("page", Page.class);
+
+        // Создаем соответствующий объект страницы
+        if (type == GooglePage.class) {
+            return new GooglePage(page);
+        } else if (type == UdemyPage.class) {
+            return new UdemyPage(page);
+        } else if (type == GithubPage.class) {
+            return new GithubPage(page);
+        } else if (type == PreplyPage.class) {
+            return new PreplyPage(page);
+        } else if (BasePage.class.isAssignableFrom(type)) {
+            try {
+                // Используем рефлексию для создания объекта
+                return type.getConstructor(Page.class).newInstance(page);
+            } catch (Exception e) {
+                throw new RuntimeException("Не удалось создать страницу типа " + type.getName(), e);
+            }
+        }
+
+        // Возвращаем объекты Playwright
         if (type == Page.class) {
-            return extensionContext.getStore(NAMESPACE).get("page", Page.class);
+            return page;
         } else if (type == Browser.class) {
             return extensionContext.getStore(NAMESPACE).get("browser", Browser.class);
         } else if (type == Playwright.class) {
             return extensionContext.getStore(NAMESPACE).get("playwright", Playwright.class);
-        } else if (type == GooglePage.class) {
-            Page page = extensionContext.getStore(NAMESPACE).get("page", Page.class);
-            return new GooglePage(page);
         }
 
         return null;
     }
+
 }
