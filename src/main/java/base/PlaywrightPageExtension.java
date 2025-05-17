@@ -9,6 +9,9 @@ import pages.GithubPage;
 import pages.GooglePage;
 import pages.PreplyPage;
 import pages.UdemyPage;
+import pages.sauceDemo.SauceLoginPage;
+
+import java.lang.reflect.Method;
 
 public class PlaywrightPageExtension
         implements
@@ -27,18 +30,22 @@ public class PlaywrightPageExtension
         );
         Page page = browser.newPage();
 
-        // Сохраняем все объекты в контексте
+        // Store all the objects in the test context
         context.getStore(NAMESPACE).put("playwright", playwright);
         context.getStore(NAMESPACE).put("browser", browser);
         context.getStore(NAMESPACE).put("page", page);
 
-        System.out.println("PlaywrightPageExtension: Page создан и сохранен");
+        var testMethodName = context.getTestMethod()
+                .map(Method::getName)
+                .orElseThrow(() -> new IllegalStateException("Test method not found"));
+
+        System.out.println("PlaywrightPageExtension: Page created and stored for test -> " + testMethodName);
     }
 
     @Override
     public void afterEach(ExtensionContext context) {
         try {
-            // Закрываем ресурсы
+            // Close resources
             Page page = context.getStore(NAMESPACE).get("page", Page.class);
             if (page != null) {
                 page.close();
@@ -57,9 +64,13 @@ public class PlaywrightPageExtension
                 context.getStore(NAMESPACE).remove("playwright");
             }
 
-            System.out.println("Ресурсы успешно закрыты");
+            System.out.println("Resources successfully closed for test -> " +
+                    context.getTestMethod()
+                            .map(Method::getName)
+                            .orElseThrow(() -> new IllegalStateException("Test method not found")));
+
         } catch (Exception e) {
-            System.out.println("Ошибка при закрытии Playwright ресурсов: " + e.getMessage());
+            System.out.println("Error while closing Playwright resources: " + e.getMessage());
         }
     }
 
@@ -67,12 +78,12 @@ public class PlaywrightPageExtension
     public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext) {
         Class<?> type = parameterContext.getParameter().getType();
 
-        // Поддерживаем все классы, расширяющие BasePage
+        // Support all classes that extend BasePage
         if (BasePage.class.isAssignableFrom(type)) {
             return true;
         }
 
-        // Поддерживаем основные объекты Playwright
+        // Support core Playwright types
         return type == Page.class ||
                 type == Browser.class ||
                 type == Playwright.class;
@@ -83,7 +94,7 @@ public class PlaywrightPageExtension
         Class<?> type = parameterContext.getParameter().getType();
         Page page = extensionContext.getStore(NAMESPACE).get("page", Page.class);
 
-        // Создаем соответствующий объект страницы
+        // Create specific page objects
         if (type == GooglePage.class) {
             return new GooglePage(page);
         } else if (type == UdemyPage.class) {
@@ -92,16 +103,18 @@ public class PlaywrightPageExtension
             return new GithubPage(page);
         } else if (type == PreplyPage.class) {
             return new PreplyPage(page);
+        } else if (type == SauceLoginPage.class) {
+            return new SauceLoginPage(page);
         } else if (BasePage.class.isAssignableFrom(type)) {
             try {
-                // Используем рефлексию для создания объекта
+                // Use reflection to instantiate custom page classes
                 return type.getConstructor(Page.class).newInstance(page);
             } catch (Exception e) {
-                throw new RuntimeException("Не удалось создать страницу типа " + type.getName(), e);
+                throw new RuntimeException("Failed to create page of type " + type.getName(), e);
             }
         }
 
-        // Возвращаем объекты Playwright
+        // Return Playwright core objects
         if (type == Page.class) {
             return page;
         } else if (type == Browser.class) {
@@ -112,5 +125,4 @@ public class PlaywrightPageExtension
 
         return null;
     }
-
 }

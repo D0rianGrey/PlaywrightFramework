@@ -17,11 +17,11 @@ public class Config {
                 .getClassLoader()
                 .getResourceAsStream(resourceName)) {
             if (in == null) {
-                throw new RuntimeException("Не найден файл конфигурации: " + resourceName);
+                throw new RuntimeException("Configuration file not found: " + resourceName);
             }
             props.load(in);
         } catch (IOException e) {
-            throw new RuntimeException("Ошибка при загрузке " + resourceName, e);
+            throw new RuntimeException("Error while loading " + resourceName, e);
         }
     }
 

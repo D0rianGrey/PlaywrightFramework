@@ -1,6 +1,6 @@
-package base;
+package base.annotations;
 
-import org.junit.jupiter.api.Test;
+import base.PlaywrightPageExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.lang.annotation.ElementType;
@@ -10,7 +10,6 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Test
 @ExtendWith(PlaywrightPageExtension.class)
-public @interface PlaywrightTest {
+public @interface PlaywrightFactoryTest {
 }
