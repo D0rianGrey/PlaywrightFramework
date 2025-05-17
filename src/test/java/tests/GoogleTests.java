@@ -4,8 +4,8 @@ import base.BaseTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import pages.GooglePage;
-import pages.base.PlaywrightTest;
-import parameterResolvers.PlaywrightPageExtension;
+import base.PlaywrightTest;
+import base.PlaywrightPageExtension;
 
 public class GoogleTests extends BaseTest {
 

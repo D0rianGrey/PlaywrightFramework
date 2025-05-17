@@ -1,4 +1,4 @@
-package parameterResolvers;
+package base;
 
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserType;
@@ -9,7 +9,6 @@ import pages.GithubPage;
 import pages.GooglePage;
 import pages.PreplyPage;
 import pages.UdemyPage;
-import pages.base.BasePage;
 
 public class PlaywrightPageExtension
         implements

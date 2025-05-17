@@ -1,4 +1,4 @@
-package utils;
+package base;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,31 +25,19 @@ public class Config {
         }
     }
 
-    /**
-     * Получить все свойства
-     */
     public static Properties getProps() {
         return props;
     }
 
-    /**
-     * Получить значение по ключу
-     */
     public static String get(String key) {
         return props.getProperty(key);
     }
 
-    /**
-     * Получить значение как int с дефолтным фолбэком
-     */
     public static int getInt(String key, int defaultValue) {
         String val = props.getProperty(key);
         return val != null ? Integer.parseInt(val) : defaultValue;
     }
 
-    /**
-     * Получить значение как boolean с дефолтным фолбэком
-     */
     public static boolean getBoolean(String key, boolean defaultValue) {
         String val = props.getProperty(key);
         return val != null ? Boolean.parseBoolean(val) : defaultValue;

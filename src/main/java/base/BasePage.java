@@ -1,16 +1,16 @@
-package pages.base;
+package base;
 
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.WaitForSelectorState;
 
 public abstract class BasePage<T extends Page> {
+
     protected final T page;
 
     public BasePage(T page) {
         this.page = page;
     }
 
-    // Общие методы для всех страниц
     protected void click(String selector) {
         page.locator(selector).click();
     }
@@ -27,6 +27,4 @@ public abstract class BasePage<T extends Page> {
     protected String getText(String selector) {
         return page.locator(selector).textContent();
     }
-
-    // Другие полезные методы
 }

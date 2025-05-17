@@ -3,7 +3,7 @@ package tests;
 import pages.GithubPage;
 import pages.GooglePage;
 import pages.PreplyPage;
-import pages.base.PlaywrightTest;
+import base.PlaywrightTest;
 
 public class DifferentContextsTest {
 

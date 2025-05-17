@@ -1,8 +1,7 @@
-package pages.base;
+package base;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import parameterResolvers.PlaywrightPageExtension;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

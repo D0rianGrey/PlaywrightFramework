@@ -1,7 +1,7 @@
 package pages;
 
 import com.microsoft.playwright.Page;
-import pages.base.BasePage;
+import base.BasePage;
 
 public class PreplyPage extends BasePage<Page> {
 
