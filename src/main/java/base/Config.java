@@ -20,6 +20,7 @@ public class Config {
                 throw new RuntimeException("Configuration file not found: " + resourceName);
             }
             props.load(in);
+            System.out.println("Loaded properties from " + resourceName);
         } catch (IOException e) {
             throw new RuntimeException("Error while loading " + resourceName, e);
         }

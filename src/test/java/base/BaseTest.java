@@ -4,7 +4,6 @@ package base;
 import com.microsoft.playwright.junit.Options;
 import com.microsoft.playwright.junit.OptionsFactory;
 import com.microsoft.playwright.junit.UsePlaywright;
-import org.junit.jupiter.api.BeforeAll;
 
 import java.util.Properties;
 
@@ -13,11 +12,9 @@ public class BaseTest implements OptionsFactory {
 
     static Properties properties;
 
-    @BeforeAll
-    static void setUp() {
+    static {
         properties = Config.getProps();
     }
-
 
     @Override
     public Options getOptions() {
