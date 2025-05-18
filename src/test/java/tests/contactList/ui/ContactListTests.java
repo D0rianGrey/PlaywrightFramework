@@ -1,12 +1,11 @@
-package tests.contactList;
+package tests.contactList.ui;
 
-import base.BaseTest;
 import base.annotations.PlaywrightTest;
 import pages.contactList.ContactListLoginPage;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
-public class ContactListTests extends BaseTest {
+public class ContactListTests {
 
     @PlaywrightTest
     public void openContactListLoginPage(ContactListLoginPage contactListLoginPage) {

@@ -1,9 +1,9 @@
 package pages;
 
 import com.microsoft.playwright.Page;
-import base.BasePage;
+import base.BasePageUi;
 
-public class PreplyPage extends BasePage<Page> {
+public class PreplyPage extends BasePageUi<Page> {
 
     public PreplyPage(Page page) {
         super(page);

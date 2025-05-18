@@ -3,11 +3,11 @@ package base;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.WaitForSelectorState;
 
-public abstract class BasePage<T extends Page> {
+public abstract class BasePageUi<T extends Page> {
 
     protected final T page;
 
-    public BasePage(T page) {
+    public BasePageUi(T page) {
         this.page = page;
     }
 

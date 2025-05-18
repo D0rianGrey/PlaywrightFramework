@@ -1,9 +1,9 @@
 package pages;
 
 import com.microsoft.playwright.Page;
-import base.BasePage;
+import base.BasePageUi;
 
-public class GithubPage extends BasePage<Page> {
+public class GithubPage extends BasePageUi<Page> {
 
     public GithubPage(Page page) {
         super(page);

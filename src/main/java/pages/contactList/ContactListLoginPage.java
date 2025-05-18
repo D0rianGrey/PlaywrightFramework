@@ -1,10 +1,10 @@
 package pages.contactList;
 
-import base.BasePage;
+import base.BasePageUi;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 
-public class ContactListLoginPage extends BasePage<Page> {
+public class ContactListLoginPage extends BasePageUi<Page> {
 
     private final Locator emailInputField;
     private final Locator passwordInputField;

@@ -1,10 +1,10 @@
 package pages.sauceDemo;
 
-import base.BasePage;
+import base.BasePageUi;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 
-public class InventoryPage extends BasePage<Page> {
+public class InventoryPage extends BasePageUi<Page> {
 
     private final Locator header;
 

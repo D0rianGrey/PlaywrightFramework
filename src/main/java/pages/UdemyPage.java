@@ -1,9 +1,9 @@
 package pages;
 
 import com.microsoft.playwright.Page;
-import base.BasePage;
+import base.BasePageUi;
 
-public class UdemyPage extends BasePage<Page> {
+public class UdemyPage extends BasePageUi<Page> {
 
     public UdemyPage(Page page) {
         super(page);

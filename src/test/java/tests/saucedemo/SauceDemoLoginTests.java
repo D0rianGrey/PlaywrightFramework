@@ -1,6 +1,5 @@
 package tests.saucedemo;
 
-import base.BaseTest;
 import base.annotations.PlaywrightFactoryTest;
 import base.annotations.PlaywrightParameterizedTest;
 import base.annotations.PlaywrightTest;
@@ -19,7 +18,7 @@ import java.util.stream.Stream;
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 
-public class SauceDemoLoginTests extends BaseTest {
+public class SauceDemoLoginTests {
 
     @PlaywrightTest
     void openLoginPageTest(SauceLoginPage sauceLoginPage) {
