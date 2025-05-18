@@ -9,6 +9,7 @@ import pages.GithubPage;
 import pages.GooglePage;
 import pages.PreplyPage;
 import pages.UdemyPage;
+import pages.contactList.ContactListLoginPage;
 import pages.sauceDemo.SauceLoginPage;
 
 import java.lang.reflect.Method;
@@ -105,6 +106,8 @@ public class PlaywrightPageExtension
             return new PreplyPage(page);
         } else if (type == SauceLoginPage.class) {
             return new SauceLoginPage(page);
+        } else if (type == ContactListLoginPage.class) {
+            return new ContactListLoginPage(page);
         } else if (BasePage.class.isAssignableFrom(type)) {
             try {
                 // Use reflection to instantiate custom page classes
